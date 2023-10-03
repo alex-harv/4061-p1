@@ -9,6 +9,20 @@ void partition_file_data(char *input_file, int n, char *blocks_folder)
 {
     // Hint: Use fseek() and ftell() to determine the size of the file
 
+    // create N files
+    for (int x = 0; x < n; x++)
+    {
+        char *argv[] = {"touch", blocks_folder, "hash", n, NULL}; // figure out how to name files
+        if (execvp(*argv, argv) < 0)
+        {
+            printf("ERROR: exec failed\n");
+            exit(1);
+        }
+    }
+
+    // distribute data
+    // use fseek, fread, fwrite
+
     FILE *fp = fopen(input_file, "r");
     if (fp == NULL)
     {
@@ -23,21 +37,8 @@ void partition_file_data(char *input_file, int n, char *blocks_folder)
     // reset fp
     fseek(fp, 0L, SEEK_SET);
 
+    // get block size
     long blockSize = ceil((float)size / (float)n);
-
-    // create N files
-    for (int x = 0; x < n; x++)
-    {
-        char *argv[] = {"touch", blocks_folder, "hash", n, NULL}; // figure out how to name files
-        if (execvp(*argv, argv) < 0)
-        {
-            printf("ERROR: exec failed\n");
-            exit(1);
-        }
-    }
-
-    // distribute data
-    // use fseek, fread, fwrite
 
     fclose(fp);
 }
