@@ -18,16 +18,16 @@ information:
 (high-level pseudocode would be acceptable/preferred for this part)
 
 
-#task is to implement the partition_file_data() function in src/utils.c
-#and come up with a plan on how you are going to implement the rest of the project.
-#ChatGPT, may be used in a limited manner for
-#programming assignments with appropriate attribution and citation.
-#128B <= Input file size <= 128MB
-#1 <= N <= 128
-#Input file size >= N
-#The length of a file path will be < 1024 characters (bytes)
-#Use PATH_MAX when creating char arrays for file names
-#All processes have access to the output/ folder
-#You should be using fork(), wait(), and exec() to create the Merkle tree using a process tree
-#If you are dynamically allocating memory, make sure to free it
+# task is to implement the partition_file_data() function in src/utils.c
+# and come up with a plan on how you are going to implement the rest of the project.
+# ChatGPT, may be used in a limited manner for
+# programming assignments with appropriate attribution and citation.
+# 128B <= Input file size <= 128MB
+# 1 <= N <= 128
+# Input file size >= N
+# The length of a file path will be < 1024 characters (bytes)
+# Use PATH_MAX when creating char arrays for file names
+# All processes have access to the output/ folder
+# You should be using fork(), wait(), and exec() to create the Merkle tree using a process tree
+# If you are dynamically allocating memory, make sure to free it
 
