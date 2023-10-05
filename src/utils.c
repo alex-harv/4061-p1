@@ -1,5 +1,5 @@
 #include "utils.h"
-#include <string.h>
+#include "string.h"
 
 // Use PATH_MAX when creating char arrays for file names
 
@@ -8,25 +8,35 @@
 void partition_file_data(char *input_file, int n, char *blocks_folder)
 {
     // Hint: Use fseek() and ftell() to determine the size of the file
+    
 
     // create N files
+    char* filename;
     for (int x = 0; x < n; x++)
     {
-        char *argv[] = {"touch", blocks_folder, "hash", n, NULL}; // figure out how to name files
+        if (x<10){
+            filename=*blocks_folder+"/hash/00"+x;
+        }
+        else if (x<100){
+            filename=*blocks_folder+"/hash/0"+x;
+        }
+        else{
+            filename=*blocks_folder+"/hash/"+x;
+        }
+        
+
+        char *argv[] = {"touch", filename, NULL}; // create file
         if (execvp(*argv, argv) < 0)
         {
-            printf("ERROR: exec failed\n");
+            printf("ERROR: file creation failed\n");
             exit(1);
         }
     }
 
-    // distribute data
-    // use fseek, fread, fwrite
-
     FILE *fp = fopen(input_file, "r");
     if (fp == NULL)
     {
-        printf("ERROR: file not found\n");
+        printf("ERROR: file not foundd\n");
         exit(1);
     }
 
@@ -38,7 +48,12 @@ void partition_file_data(char *input_file, int n, char *blocks_folder)
     fseek(fp, 0L, SEEK_SET);
 
     // get block size
-    long blockSize = ceil((float)size / (float)n);
+    long blockSize = size / n;
+    int rem = size % n;
+
+    // distribute data
+    // use fseek, fread, fwrite
+
 
     fclose(fp);
 }
