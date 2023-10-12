@@ -19,7 +19,9 @@ int main(int argc, char *argv[])
     char *blocks_folder = argv[1];
     char *hashes_folder = argv[2];
     int input_n = atoi(argv[3]);
+    char* n;
     int input_child_id = atoi(argv[4]);
+    char* child_id;
 
     if (input_n == 1)
     {
@@ -27,7 +29,7 @@ int main(int argc, char *argv[])
     }
 
     //converting to pass to command line arguments
-    char* n;
+    
     sprintf(n, "%d", input_n/2); //n is always divided by 2
 
     
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
         // TODO: do left of tree
         
         //converting to pass to command line arguments
-        char* child_id;
+        
         sprintf(child_id, "%d", input_child_id*2+1);
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
@@ -64,7 +66,7 @@ int main(int argc, char *argv[])
     {
         // TODO: do right of tree
 
-        char* child_id;
+        
         sprintf(child_id, "%d", input_child_id*2+2);
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
