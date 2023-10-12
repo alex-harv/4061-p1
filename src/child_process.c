@@ -37,14 +37,23 @@ int main(int argc, char *argv[])
     
 
     pid_t pid = fork();
+    /*
+        left=child (pid==0)
+        right=parent (pid>0)
+        left: child_id = 2*parent_id + 1
+        right: child_id = 2*parent_id + 2
+        right: waits for left to finish then exits
+    */
+
     if (pid == 0)
     {
         // TODO: do left of tree
-
-        // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
+        
+        //converting to pass to command line arguments
         char* child_id;
         sprintf(child_id, "%d", temp_child_id*2+1);
 
+        // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
         char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
         if (execvp(*argv, argv) < 0)
         {
@@ -60,6 +69,7 @@ int main(int argc, char *argv[])
         char* child_id;
         sprintf(child_id, "%d", temp_child_id*2+2);
 
+        // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
         char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
         if (execvp(*argv, argv) < 0)
         {
