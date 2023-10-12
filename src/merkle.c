@@ -16,8 +16,8 @@ int main(int argc, char* argv[]) {
     }
 
     // TODO: Read in the command line arguments and validate them
-    char *input_file;
-    int n;
+    char *input_file=argv[1];
+    int n=(int)argv[2];
 
 
     // ##### DO NOT REMOVE #####

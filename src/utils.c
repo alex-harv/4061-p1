@@ -1,88 +1,75 @@
 #include "utils.h"
-#include "string.h"
-
-// Use PATH_MAX when creating char arrays for file names
 
 // Create N files and distribute the data from the input file evenly among them
 // See section 3.1 of the project writeup for important implementation details
-void partition_file_data(char *input_file, int n, char *blocks_folder)
-{
+void partition_file_data(char *input_file, int n, char *blocks_folder) {
     // Hint: Use fseek() and ftell() to determine the size of the file
+   
     
+    FILE *fp  = fopen(input_file, "rb");
+    if (!fp) {
+    perror("Error: Opening input file");
+    }
+    
+    fseek(fp, 0, SEEK_END);
+    long fileSize = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    
+    int chunkSize = fileSize/n;
+    int restOfData = fileSize%n;
+    
+    char buffer[chunkSize];
+    size_t byteRead;
+    
+    for (int i = 0; i<n; i++) {
+    int currChunkSize = chunkSize;
+    if (i == n-1) {
+            currChunkSize += restOfData;
+        }
 
-    // create N files
-    char* filename;
-    for (int x = 0; x < n; x++)
-    {
-        if (x<10){
-            filename=*blocks_folder+"/hash/00"+x;
-        }
-        else if (x<100){
-            filename=*blocks_folder+"/hash/0"+x;
-        }
-        else{
-            filename=*blocks_folder+"/hash/"+x;
-        }
-        
-
-        char *argv[] = {"touch", filename, NULL}; // create file
-        if (execvp(*argv, argv) < 0)
-        {
-            printf("ERROR: file creation failed\n");
+        byteRead = fread(buffer, 1, currChunkSize, fp);
+        if (byteRead <= 0) {
+            printf("Error: reading or eof error\n");
             exit(1);
         }
+        
+        char fileName[256];
+        snprintf(fileName, sizeof(fileName), "%s/%d.txt", blocks_folder, i);
+        
+        FILE *chunk = fopen(fileName, "w");
+        if (!chunk) {
+            printf("Error: Creating chunk file %s\n", fileName);
+            exit(1);
+        }
+        
+        fwrite(buffer, 1, byteRead, chunk);
+        fclose(chunk);
     }
-
-    FILE *fp = fopen(input_file, "r");
-    if (fp == NULL)
-    {
-        printf("ERROR: file not foundd\n");
-        exit(1);
-    }
-
-    // get size of file
-    fseek(fp, 0L, SEEK_END);
-    long size = ftell(fp);
-
-    // reset fp
-    fseek(fp, 0L, SEEK_SET);
-
-    // get block size
-    long blockSize = size / n;
-    int rem = size % n;
-
-    // distribute data
-    // use fseek, fread, fwrite
-
-
+    
     fclose(fp);
 }
 
+
+
 // ##### DO NOT MODIFY THIS FUNCTION #####
-void setup_output_directory(char *block_folder, char *hash_folder)
-{
+void setup_output_directory(char *block_folder, char *hash_folder) {
     // Remove output directory
     pid_t pid = fork();
-    if (pid == 0)
-    {
+    if (pid == 0) {
         char *argv[] = {"rm", "-rf", "./output/", NULL};
-        if (execvp(*argv, argv) < 0)
-        {
+        if (execvp(*argv, argv) < 0) {
             printf("ERROR: exec failed\n");
             exit(1);
         }
         exit(0);
-    }
-    else
-    {
+    } else {
         wait(NULL);
     }
 
     sleep(1);
 
     // Creating output directory
-    if (mkdir("output", 0777) < 0)
-    {
+    if (mkdir("output", 0777) < 0) {
         printf("ERROR: mkdir output failed\n");
         exit(1);
     }
@@ -90,15 +77,13 @@ void setup_output_directory(char *block_folder, char *hash_folder)
     sleep(1);
 
     // Creating blocks directory
-    if (mkdir(block_folder, 0777) < 0)
-    {
+    if (mkdir(block_folder, 0777) < 0) {
         printf("ERROR: mkdir output/blocks failed\n");
         exit(1);
     }
 
     // Creating hashes directory
-    if (mkdir(hash_folder, 0777) < 0)
-    {
+    if (mkdir(hash_folder, 0777) < 0) {
         printf("ERROR: mkdir output/hashes failed\n");
         exit(1);
     }
