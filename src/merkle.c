@@ -29,15 +29,11 @@ int main(int argc, char *argv[])
     char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, 0, NULL};
     execvp(*argv, argv);
 
-
-
-
-
-    // ##### DO NOT REMOVE #####
-    #ifndef TEST_INTERMEDIATE
+// ##### DO NOT REMOVE #####
+#ifndef TEST_INTERMEDIATE
     // Visually display the merkle tree using the output in the hashes_folder
-        print_merkle_tree(visualization_file, hashes_folder, n);
-    #endif
+    print_merkle_tree(visualization_file, hashes_folder, n);
+#endif
 
     return 0;
 }
