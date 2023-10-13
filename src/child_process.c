@@ -28,12 +28,13 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    //converting to pass to command line arguments
-    
-    sprintf(n, "%d", input_n/2); //n is always divided by 2
+    /*
+    ./child_process blocks_folder hashes_folder n child_id
+    where n=leafs and child_id = id of the child
+    */
+
 
     
-
     
 
     /*
@@ -44,13 +45,15 @@ int main(int argc, char *argv[])
         right: waits for left to finish then exits
         both: n = input_n/2
     */
+    //converting to pass to command line arguments
+    sprintf(n, "%d", input_n/2); //n is always divided by 2
+
     pid_t pid = fork();
     if (pid == 0)
     {
         // TODO: do left of tree
         
         //converting to pass to command line arguments
-        
         sprintf(child_id, "%d", input_child_id*2+1);
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
