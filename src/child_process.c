@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
         char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
         if (execvp(*argv, argv) < 0)
         {
+            // i hope we can use execvp instead of regular exec
+            // guide says use exec()
             printf("ERROR: exec failed at child_id:%d, and N:%d \n", child_id, n);
             exit(1);
         }
