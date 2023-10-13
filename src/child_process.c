@@ -47,16 +47,15 @@ int main(int argc, char *argv[])
     pid_t pid = fork();
     if (pid == 0)
     {
-        // TODO: do left of tree
         if (input_n == 1){
             //this is a leaf node process
-            //hash the file
+            //TODO: hash the file
 
             exit(0);
         }
         
         //this is a non-leaf node process
-        //hash the two children
+        //TODO: hash the two children
         
         
         
@@ -75,16 +74,15 @@ int main(int argc, char *argv[])
     }
     else
     {
-        // TODO: do right of tree
         if (input_n == 1){
             //this is a leaf node process
-            //hash the file
+            //TODO: hash the file
 
             exit(0);
         }
         
         //this is a non-leaf node process
-        //hash the two children
+        //TODO: hash the two children
 
         
         sprintf(child_id, "%d", input_child_id*2+2);
