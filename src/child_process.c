@@ -23,10 +23,6 @@ int main(int argc, char *argv[])
     int input_child_id = atoi(argv[4]);
     char* child_id;
 
-    if (input_n == 1)
-    {
-        exit(0);
-    }
 
     /*
     ./child_process blocks_folder hashes_folder n child_id
@@ -46,15 +42,27 @@ int main(int argc, char *argv[])
         both: n = input_n/2
     */
     //converting to pass to command line arguments
-    sprintf(n, "%d", input_n/2); //n is always divided by 2
+    
 
     pid_t pid = fork();
     if (pid == 0)
     {
         // TODO: do left of tree
+        if (input_n == 1){
+            //this is a leaf node process
+            //hash the file
+
+            exit(0);
+        }
+        
+        //this is a non-leaf node process
+        //hash the two children
+        
+        
         
         //converting to pass to command line arguments
         sprintf(child_id, "%d", input_child_id*2+1);
+        sprintf(n, "%d", input_n/2); 
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
         char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
@@ -68,9 +76,19 @@ int main(int argc, char *argv[])
     else
     {
         // TODO: do right of tree
+        if (input_n == 1){
+            //this is a leaf node process
+            //hash the file
+
+            exit(0);
+        }
+        
+        //this is a non-leaf node process
+        //hash the two children
 
         
         sprintf(child_id, "%d", input_child_id*2+2);
+        sprintf(n, "%d", input_n/2); 
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
         char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
