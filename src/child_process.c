@@ -68,8 +68,8 @@ int main(int argc, char *argv[])
         sprintf(n, "%d", input_n/2); 
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
-        char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
-        if (execvp(*argv, argv) < 0)
+        char *argv2[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
+        if (execvp(*argv2, argv2) < 0)
         {
             // i hope we can use execvp instead of regular exec
             // guide says use exec()

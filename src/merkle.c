@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
 
     // Start the recursive merkle tree computation by spawning first child process (root)
     // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
-    char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, 0, NULL};
-    execvp(*argv, argv);
+    char *argv2[] = {"./child_process", blocks_folder, hashes_folder, n, 0, NULL};
+    execvp(*argv2, argv2);
 
 // ##### DO NOT REMOVE #####
 #ifndef TEST_INTERMEDIATE
