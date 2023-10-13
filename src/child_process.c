@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
         {
             // i hope we can use execvp instead of regular exec
             // guide says use exec()
-            printf("ERROR: exec failed at child_id:%d, and N:%d \n", child_id, n);
+            printf("ERROR: exec failed at child_id:%s, and N:%s \n", child_id, n);
             exit(1);
         }
         exit(0);
@@ -98,10 +98,10 @@ int main(int argc, char *argv[])
         sprintf(n, "%d", input_n/2); 
 
         // ./child_process <blocks_folder> <hashes_folder> <N> <child_id>
-        char *argv[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
-        if (execvp(*argv, argv) < 0)
+        char *argv2[] = {"./child_process", blocks_folder, hashes_folder, n, child_id, NULL};
+        if (execvp(*argv2, argv2) < 0)
         {
-            printf("ERROR: exec failed at child_id:%d, and N:%d \n", child_id, n);
+            printf("ERROR: exec failed at child_id:%s, and N:%s \n", child_id, n);
             exit(1);
         }
 
