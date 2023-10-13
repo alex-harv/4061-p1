@@ -47,9 +47,13 @@ int main(int argc, char *argv[])
     pid_t pid = fork();
     if (pid == 0)
     {
+        //this branch is the left child and exits before the right child process
+
         if (input_n == 1){
             //this is a leaf node process
             //TODO: hash the file
+            // how do we hash the file corresponding to 
+            //filename =child_id
 
             exit(0);
         }
@@ -72,8 +76,11 @@ int main(int argc, char *argv[])
         }
         exit(0);
     }
+
+
     else
     {
+        //this branch is the right child and waits for left to finish then exits
         if (input_n == 1){
             //this is a leaf node process
             //TODO: hash the file
