@@ -38,6 +38,7 @@ int main(int argc, char* argv[]) {
     pid_t pid = fork();
     if (pid == 0) {
         //left tree 
+        printf("left tree input_n=%d",input_n);
         if (input_n == 1) {
             //this is a leaf node
             snprintf(block_filename, sizeof(block_filename), "%s/%d.txt", blocks_folder, input_child_id);
@@ -76,6 +77,7 @@ int main(int argc, char* argv[]) {
 
     else {
         //right tree
+        printf("right tree input_n=%d",input_n);
         if (input_n == 1) {
             //this is a leaf node
             snprintf(block_filename, sizeof(block_filename), "%s/%d.txt", blocks_folder, input_child_id);
